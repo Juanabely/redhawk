@@ -72,7 +72,7 @@ redhawk
 ### Test on a fresh VM:
 ```bash
 # Install Redhawk
-curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/redhawk/main/install-redhawk.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/juanabely/redhawk/main/install-redhawk.sh | sudo bash
 
 # Run setup
 redhawk
