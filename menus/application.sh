@@ -24,24 +24,31 @@ while true; do
 
   case $app in
     1)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags docker
       ;;
     2)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags docker_compose
       ;;
     3)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags portainer
       ;;
     4)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags npm
       ;;
     5)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags traefik
       ;;
     6)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml --tags uptime_kuma
       ;;
     7)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/apps.yml
       ;;
     0)

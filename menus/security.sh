@@ -21,15 +21,19 @@ while true; do
 
   case $sec in
     1)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/security.yml --tags ufw
       ;;
     2)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/security.yml --tags clamav
       ;;
     3)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/security.yml --tags ssh
       ;;
     4)
+      cd /opt/redhawk
       ansible-playbook /opt/redhawk/playbooks/security.yml
       ;;
     0)
