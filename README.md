@@ -3,7 +3,7 @@
 **Production-grade server bootstrap & security hardening tool**
 
 <div align="center">
-  <img src="https://i.ibb.co/DPGZHgHD/Screenshot-20251213-180134.png" border="0"></a>" alt="Redhawk Logo" width="300">
+  <img src="https://i.ibb.co/DPGZHgHD/Screenshot-20251213-180134.png" alt="Redhawk Logo" width="300">
 </div>
 
 Redhawk automates the setup and security hardening of Ubuntu/Debian servers using Ansible.
