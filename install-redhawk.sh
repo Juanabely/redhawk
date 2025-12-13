@@ -44,7 +44,7 @@ if [ -d "$INSTALL_DIR" ]; then
   cd "$INSTALL_DIR" && git pull -q
 else
   echo -e "${YELLOW}📥 Cloning Redhawk...${NC}"
-  git clone -q https://github.com/<YOUR_GITHUB_USERNAME>/redhawk.git "$INSTALL_DIR"
+  git clone -q https://github.com/juanabely/redhawk.git "$INSTALL_DIR"
 fi
 
 chmod +x "$INSTALL_DIR/redhawk.sh"
