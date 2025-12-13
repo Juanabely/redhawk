@@ -19,15 +19,16 @@ while true; do
   read -p "$(echo -e ${YELLOW}Select:${NC} )" audit
 
   case $audit in
+   case $audit in
     1)
-     cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags port_scan
-     ;;
+      cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags port_scan
+      ;;
     2)
-     cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags vuln_scan
-     ;
+      cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags vuln_scan
+      ;;
     3)
-     cd /opt/redhawk && ansible-playbook playbooks/scan.yml
-     ;;
+      cd /opt/redhawk && ansible-playbook playbooks/scan.yml
+      ;;
     0)
       break
       ;;
