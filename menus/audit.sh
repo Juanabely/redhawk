@@ -19,7 +19,6 @@ while true; do
   read -p "$(echo -e ${YELLOW}Select:${NC} )" audit
 
   case $audit in
-   case $audit in
     1)
       cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags port_scan
       ;;
@@ -38,5 +37,5 @@ while true; do
   esac
   
   echo
-  read -p "Press Enter to continue..."
+  read -p "Press Enter to continue...
 done
