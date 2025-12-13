@@ -1,0 +1,48 @@
+---
+- name: Install Lynis
+  apt:
+    name: lynis
+    state: present
+
+- name: Run Lynis audit
+  command: lynis audit system --quick --quiet
+  register: lynis_output
+  changed_when: false
+  failed_when: false
+
+- name: Parse Lynis results
+  shell: |
+    echo "🛡️ VULNERABILITY SCAN RESULTS"
+    echo "=============================="
+    echo ""
+    
+    SCORE=$(grep "Hardening index" /var/log/lynis.log | awk -F: '{print $2}' | tr -d ' []')
+    
+    if [ -z "$SCORE" ]; then
+      SCORE=0
+    fi
+    
+    # Convert to risk score (1-10, inverse of hardening)
+    RISK=$((100 - SCORE))
+    RISK_SCALE=$((RISK / 10))
+    
+    if [ $RISK_SCALE -le 2 ]; then
+      LEVEL="🟢 LOW RISK"
+    elif [ $RISK_SCALE -le 5 ]; then
+      LEVEL="🟡 MEDIUM RISK"
+    elif [ $RISK_SCALE -le 7 ]; then
+      LEVEL="🟠 HIGH RISK"
+    else
+      LEVEL="🔴 CRITICAL RISK"
+    fi
+    
+    echo "Security Score: $SCORE/100"
+    echo "Risk Level: $RISK_SCALE/10 - $LEVEL"
+    echo ""
+    echo "Top Warnings:"
+    grep "Warning:" /var/log/lynis-report.dat | head -5
+  register: vuln_report
+  changed_when: false
+
+- debug:
+    msg: "{{ vuln_report.stdout_lines }}"

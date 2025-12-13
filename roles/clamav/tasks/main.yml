@@ -1,0 +1,42 @@
+---
+- name: Install ClamAV
+  apt:
+    name:
+      - clamav
+      - clamav-daemon
+    state: present
+
+- name: Stop ClamAV service
+  service:
+    name: clamav-freshclam
+    state: stopped
+  ignore_errors: yes
+
+- name: Update virus definitions
+  command: freshclam
+  async: 600
+  poll: 0
+  register: freshclam_update
+
+- name: Wait for freshclam to complete
+  async_status:
+    jid: "{{ freshclam_update.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 60
+  delay: 10
+
+- name: Start ClamAV daemon
+  service:
+    name: clamav-daemon
+    state: started
+    enabled: yes
+
+- name: Quick scan /tmp
+  command: clamscan --infected --remove --recursive /tmp
+  register: clam_scan
+  changed_when: false
+  failed_when: false
+
+- debug:
+    msg: "✅ ClamAV installed and updated"

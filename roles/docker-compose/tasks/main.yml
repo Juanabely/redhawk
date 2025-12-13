@@ -1,0 +1,60 @@
+---
+- name: Install Docker Compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: '0755'
+
+- name: Verify Docker Compose
+  command: docker-compose --version
+  register: compose_version
+  changed_when: false
+
+- debug:
+    msg: "✅ {{ compose_version.stdout }}"
+
+- name: Create Docker Compose directory
+  file:
+    path: /opt/docker-compose
+    state: directory
+    mode: '0755'
+
+- name: Deploy Portainer
+  template:
+    src: portainer.yml.j2
+    dest: /opt/docker-compose/portainer.yml
+  when: compose_service is defined and compose_service == 'portainer'
+
+- name: Start Portainer
+  command: docker-compose -f /opt/docker-compose/portainer.yml up -d
+  when: compose_service is defined and compose_service == 'portainer'
+
+- name: Deploy Nginx Proxy Manager
+  template:
+    src: npm.yml.j2
+    dest: /opt/docker-compose/npm.yml
+  when: compose_service is defined and compose_service == 'npm'
+
+- name: Start NPM
+  command: docker-compose -f /opt/docker-compose/npm.yml up -d
+  when: compose_service is defined and compose_service == 'npm'
+
+- name: Deploy Traefik
+  template:
+    src: traefik.yml.j2
+    dest: /opt/docker-compose/traefik.yml
+  when: compose_service is defined and compose_service == 'traefik'
+
+- name: Start Traefik
+  command: docker-compose -f /opt/docker-compose/traefik.yml up -d
+  when: compose_service is defined and compose_service == 'traefik'
+
+- name: Deploy Uptime Kuma
+  template:
+    src: uptime-kuma.yml.j2
+    dest: /opt/docker-compose/uptime-kuma.yml
+  when: compose_service is defined and compose_service == 'uptime_kuma'
+
+- name: Start Uptime Kuma
+  command: docker-compose -f /opt/docker-compose/uptime-kuma.yml up -d
+  when: compose_service is defined and compose_service == 'uptime_kuma'

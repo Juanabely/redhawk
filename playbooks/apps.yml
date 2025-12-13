@@ -1,0 +1,12 @@
+---
+- name: Application Setup
+  hosts: localhost
+  become: true
+  
+  roles:
+    - { role: docker, tags: docker }
+    - { role: docker_compose, tags: docker_compose }
+    - { role: docker_compose, tags: portainer, compose_service: portainer }
+    - { role: docker_compose, tags: npm, compose_service: npm }
+    - { role: docker_compose, tags: traefik, compose_service: traefik }
+    - { role: docker_compose, tags: uptime_kuma, compose_service: uptime_kuma }

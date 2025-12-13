@@ -1,0 +1,8 @@
+---
+- name: Security Scanning
+  hosts: localhost
+  become: true
+  
+  roles:
+    - { role: port_scanner, tags: port_scan }
+    - { role: vuln_scanner, tags: vuln_scan }

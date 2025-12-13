@@ -1,0 +1,9 @@
+---
+- name: Security Hardening
+  hosts: localhost
+  become: true
+  
+  roles:
+    - { role: ufw, tags: ufw }
+    - { role: clamav, tags: clamav }
+    - { role: ssh_hardening, tags: ssh }
