@@ -20,14 +20,14 @@ while true; do
 
   case $audit in
     1)
-      ansible-playbook /opt/redhawk/playbooks/scan.yml --tags port_scan
-      ;;
+     cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags port_scan
+     ;;
     2)
-      ansible-playbook /opt/redhawk/playbooks/scan.yml --tags vuln_scan
-      ;;
+     cd /opt/redhawk && ansible-playbook playbooks/scan.yml --tags vuln_scan
+     ;
     3)
-      ansible-playbook /opt/redhawk/playbooks/scan.yml
-      ;;
+     cd /opt/redhawk && ansible-playbook playbooks/scan.yml
+     ;;
     0)
       break
       ;;
