@@ -26,7 +26,7 @@ Redhawk automates the setup and security hardening of Ubuntu/Debian servers usin
 
 ## 🚀 Quick Install
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/redhawk/main/install-redhawk.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/juanabely/redhawk/main/install-redhawk.sh | sudo bash
 ```
 
 Then run:
