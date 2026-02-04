@@ -80,8 +80,13 @@ INSTALL_DIR="/opt/redhawk"
 
 if [ -d "$INSTALL_DIR" ]; then
   echo -e "${YELLOW}   🔁 Updating Redhawk...${NC}"
-  cd "$INSTALL_DIR" && git pull -q &
+  cd "$INSTALL_DIR"
+  # Stash local changes to avoid merge conflicts
+  git stash push -m "Auto-stash before update" -q || true
+  git pull -q &
   loading $!
+  # Try to apply local changes back
+  git stash pop -q 2>/dev/null || true
 else
   echo -e "${YELLOW}   📥 Cloning Redhawk...${NC}"
   git clone -q https://github.com/juanabely/redhawk.git "$INSTALL_DIR" &
