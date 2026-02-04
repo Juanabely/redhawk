@@ -10,6 +10,9 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
+# Get the directory where the script is located
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 print_header() {
     clear
     echo -e "${BOLD_RED}   >>> REDHAWK SECURITY AUDIT <<<   ${NC}"
@@ -31,15 +34,15 @@ while true; do
 
   case $choice in
     1)
-      cd /opt/redhawk
-      ansible-playbook playbooks/scan.yml
+      echo -e "${YELLOW}   🚀 Running Port Scan...${NC}"
+      cd "$BASE_DIR" && ansible-playbook playbooks/scan.yml --tags port_scan
       ;;
-    0)
-      break
+    2)
+      echo -e "${YELLOW}   🚀 Running Vulnerability Scan...${NC}"
+      cd "$BASE_DIR" && ansible-playbook playbooks/scan.yml --tags vuln_scan
       ;;
-    *)
-      echo -e "${RED}❌ Invalid option${NC}"
-      ;;
+    0) break ;;
+    *) echo -e "${RED}   ❌ Invalid option${NC}" ; sleep 1 ;;
   esac
   
   echo

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get the directory where the script is located
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Colors
 RED='\033[0;31m'
 BOLD_RED='\033[1;31m'
@@ -42,15 +45,21 @@ loading() {
     printf "    \b\b\b\b"
 }
 
+# Source functions for full setup if needed or export them
+export -f print_logo
+export -f loading
+export RED BOLD_RED GREEN YELLOW BLUE CYAN WHITE NC
+
 while true; do
   clear
   print_logo
   echo
   echo -e "${WHITE}   [ MENU SELECTION ]${NC}"
   echo
-  echo -e "   ${CYAN}[1]${NC} ${WHITE}Application Setup${NC}    ${RED}::${NC} ${YELLOW}Docker, Portainer, NPM, Traefik${NC}"
-  echo -e "   ${CYAN}[2]${NC} ${WHITE}Security Setup${NC}       ${RED}::${NC} ${YELLOW}Firewall, AV, SSH Hardening${NC}"
+  echo -e "   ${CYAN}[1]${NC} ${WHITE}Application Setup${NC}    ${RED}::${NC} ${YELLOW}Docker, Nginx, Proxy Tools${NC}"
+  echo -e "   ${CYAN}[2]${NC} ${WHITE}Security Setup${NC}       ${RED}::${NC} ${YELLOW}Firewall, Fail2Ban, AntiVirus${NC}"
   echo -e "   ${CYAN}[3]${NC} ${WHITE}Security Audit${NC}       ${RED}::${NC} ${YELLOW}Port Scan, Vuln Scan${NC}"
+  echo -e "   ${CYAN}[4]${NC} ${WHITE}Full Production Setup${NC} ${RED}::${NC} ${YELLOW}One-click Deploy All${NC}"
   echo -e "   ${CYAN}[0]${NC} ${WHITE}Exit${NC}"
   echo
   echo -e "${RED}═════════════════════════════════════${NC}"
@@ -58,9 +67,18 @@ while true; do
   read -p "$(echo -e ${BOLD_RED}root@redhawk${NC}:${BLUE}~${NC}$ )" choice
 
   case $choice in
-    1) /opt/redhawk/menus/application.sh ;;
-    2) /opt/redhawk/menus/security.sh ;;
-    3) /opt/redhawk/menus/audit.sh ;;
+    1) bash "$BASE_DIR/menus/application.sh" ;;
+    2) bash "$BASE_DIR/menus/security.sh" ;;
+    3) bash "$BASE_DIR/menus/audit.sh" ;;
+    4) 
+      echo
+      echo -e "${YELLOW}   🚀 Starting Full Production Setup...${NC}"
+      # Run Docker, Nginx, Fail2Ban, ClamAV
+      bash "$BASE_DIR/menus/application.sh" --full
+      bash "$BASE_DIR/menus/security.sh" --full
+      echo -e "${GREEN}   ✅ Full Production Setup Complete!${NC}"
+      read -p "Press Enter to return to menu..."
+      ;;
     0) 
       echo
       echo -e "${GREEN}   👋 Shutting down Redhawk systems...${NC}"
