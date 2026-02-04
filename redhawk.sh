@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# Get the directory where the script is located
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Robust path detection
+SCRIPT_PATH=$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || realpath "${BASH_SOURCE[0]}")
+BASE_DIR=$(dirname "$SCRIPT_PATH")
 
-# Colors
-RED='\033[0;31m'
-BOLD_RED='\033[1;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-WHITE='\033[1;37m'
-NC='\033[0m' # No Color
+# Source shared utilities (Colors, Loading)
+if [ -f "$BASE_DIR/utils.sh" ]; then
+    source "$BASE_DIR/utils.sh"
+else
+    # Fallback colors if utils.sh is missing
+    RED='\033[0;31m'; BOLD_RED='\033[1;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'; WHITE='\033[1;37m'; NC='\033[0m'
+fi
 
 # ASCII Art Logo
 print_logo() {
@@ -29,26 +28,7 @@ print_logo() {
     echo -e "${BOLD_RED}   >>> SERVER DEFENSE SYSTEM <<<   ${NC}"
     echo -e "${RED}═════════════════════════════════════${NC}"
 }
-
-# Loading Animation
-loading() {
-    local pid=$1
-    local delay=0.1
-    local spinstr='|/-\'
-    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-        local temp=${spinstr#?}
-        printf " [%c]  " "$spinstr"
-        local spinstr=$temp${spinstr%"$temp"}
-        sleep $delay
-        printf "\b\b\b\b\b\b"
-    done
-    printf "    \b\b\b\b"
-}
-
-# Source functions for full setup if needed or export them
 export -f print_logo
-export -f loading
-export RED BOLD_RED GREEN YELLOW BLUE CYAN WHITE NC
 
 while true; do
   clear

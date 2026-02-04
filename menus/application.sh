@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Colors (Defined here in case it's run standalone)
-RED='\033[0;31m'
-BOLD_RED='\033[1;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-WHITE='\033[1;37m'
-NC='\033[0m'
+# Robust path detection
+SCRIPT_PATH=$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || realpath "${BASH_SOURCE[0]}")
+DIR_PATH=$(dirname "$SCRIPT_PATH")
+BASE_DIR=$(dirname "$DIR_PATH")
 
-# Get the directory where the script is located
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Source shared utilities (Colors, Loading)
+if [ -f "$BASE_DIR/utils.sh" ]; then
+    source "$BASE_DIR/utils.sh"
+else
+    # Fallback if utils.sh is not found
+    RED='\033[0;31m'; BOLD_RED='\033[1;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'; WHITE='\033[1;37m'; NC='\033[0m'
+fi
 
 # ASCII Art Logo (Mini)
 print_header() {
