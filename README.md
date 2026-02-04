@@ -19,9 +19,9 @@ Redhawk automates the setup and security hardening of Ubuntu/Debian servers usin
 - Traefik (Reverse Proxy)
 - Uptime Kuma (Monitoring)
 
-### 🔒 Security Suite
-- UFW Firewall (auto-configured)
-- ClamAV Antivirus
+### 🔒 Security
+- **SSH Management**: User creation, sudo management, SSH key deployment, and security hardening (root/password login disable).
+- **Security**: Firewall (UFW), Fail2Ban, ClamAV Antivirus.
 - SSH Hardening
 - Port Scanning (nmap)
 - Vulnerability Scanning (Lynis with 1-10 risk scoring)

@@ -40,6 +40,7 @@ while true; do
   echo -e "   ${CYAN}[2]${NC} ${WHITE}Security Setup${NC}       ${RED}::${NC} ${YELLOW}Firewall, Fail2Ban, AntiVirus${NC}"
   echo -e "   ${CYAN}[3]${NC} ${WHITE}Security Audit${NC}       ${RED}::${NC} ${YELLOW}Port Scan, Vuln Scan${NC}"
   echo -e "   ${CYAN}[4]${NC} ${WHITE}Full Production Setup${NC} ${RED}::${NC} ${YELLOW}One-click Deploy All${NC}"
+  echo -e "   ${CYAN}[5]${NC} ${WHITE}SSH Setup & Hardening${NC} ${RED}::${NC} ${YELLOW}User & Key Management${NC}"
   echo -e "   ${CYAN}[0]${NC} ${WHITE}Exit${NC}"
   echo
   echo -e "${RED}═════════════════════════════════════${NC}"
@@ -59,6 +60,7 @@ while true; do
       echo -e "${GREEN}   ✅ Full Production Setup Complete!${NC}"
       read -p "Press Enter to return to menu..."
       ;;
+    5) bash "$BASE_DIR/menus/ssh_setup.sh" ;;
     0) 
       echo
       echo -e "${GREEN}   👋 Shutting down Redhawk systems...${NC}"
