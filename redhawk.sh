@@ -41,6 +41,8 @@ while true; do
   echo -e "   ${CYAN}[3]${NC} ${WHITE}Security Audit${NC}       ${RED}::${NC} ${YELLOW}Port Scan, Vuln Scan${NC}"
   echo -e "   ${CYAN}[4]${NC} ${WHITE}Full Production Setup${NC} ${RED}::${NC} ${YELLOW}One-click Deploy All${NC}"
   echo -e "   ${CYAN}[5]${NC} ${WHITE}SSH Setup & Hardening${NC} ${RED}::${NC} ${YELLOW}User & Key Management${NC}"
+  echo -e "   ${CYAN}[6]${NC} ${WHITE}System Status${NC}        ${RED}::${NC} ${YELLOW}Services, Resources, Docker${NC}"
+  echo -e "   ${CYAN}[7]${NC} ${WHITE}Log Viewer${NC}           ${RED}::${NC} ${YELLOW}Auth, Nginx, ClamAV, Docker${NC}"
   echo -e "   ${CYAN}[0]${NC} ${WHITE}Exit${NC}"
   echo
   echo -e "${RED}═════════════════════════════════════${NC}"
@@ -61,6 +63,8 @@ while true; do
       read -p "Press Enter to return to menu..."
       ;;
     5) bash "$BASE_DIR/menus/ssh_setup.sh" ;;
+    6) bash "$BASE_DIR/menus/status.sh" ;;
+    7) bash "$BASE_DIR/menus/logs.sh" ;;
     0) 
       echo
       echo -e "${GREEN}   👋 Shutting down Redhawk systems...${NC}"
